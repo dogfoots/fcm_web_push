@@ -35,5 +35,33 @@ version on firebase 9.9.4
 ----
 
 the comments of other details are in the specific files.
-
 자세한 내용들은 각 파일들에 주석을 달아놓았다.
+
+
+added
+
+using the Notification DOM
+
+```javascript
+
+//이걸로 해당 브라우저가 지원하는지 확인가능하고
+typeof Notification !== "undefined"
+
+
+//이걸로 노티 메시지 창 알림 권한받고
+Notification.requestPermission().then(function (permission) {
+    console.log(permission);
+});
+
+//아래 코드로 노티 띄울 수 있다.
+let title = "JavaScript Jeep";
+let icon = 'https://example.host.com/ppp.png';
+let body = "Message to be displayed";
+var notification = new Notification('Title', { body, icon });
+notification.onclick = () => {
+    notification.close();
+    window.parent.focus();
+}
+
+```
+
