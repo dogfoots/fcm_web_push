@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <body>
+    <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js';
+    import { getMessaging, getToken ,onMessage,showNotification  } from 'https://www.gstatic.com/firebasejs/9.9.4/firebase-messaging.js';
+     // ...
+
+      // TODO: Replace the following with your app's Firebase project configuration
+      const firebaseConfig = {
+        /*
+         you must copy and paste your firebase config 
+  
+        the location of your firebase config : firebase console -> your project settings -> common -> scrolldown page 
+        -> sdk setting and configure -> CDN radio type -> const firebaseConfig attributes and values in javascript code snippet
+        
+        */
+    };
+
+
+
+      // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const messaging = getMessaging(app);
+
+    getToken(messaging, { vapidKey: /*
+    copy and paste here your vapid key
+    
+    the location of your vapid key : firebase console -> your project settings -> cloud messaging -> web push certification -> key pair
+    
+    */}.then((currentToken) => {
+      if (currentToken) {
+      // Send the token to your server and update the UI if necessary
+      // ...
+      console.log("currentToken : "+currentToken);
+      } else {
+      // Show permission request UI
+      console.log('No registration token available. Request permission to generate one.');
+      // ...
+      }
+    }).catch((err) => {
+      console.log('An error occurred while retrieving token. ', err);
+      // ...
+    });
+
+    onMessage(messaging,(payload) => {
+        console.log('Message received. ', payload);
+
+      });
+
+
+
+    /*
+    function requestPermission() {
+        console.log('Requesting permission...');
+        Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+      }else{
+      console.log('no granted');
+      }
+    });
+    };
+
+    requestPermission();//브라우저 알림 권한 승인용
+    */
+
+
+    </script>
+  </body>
+</html>
